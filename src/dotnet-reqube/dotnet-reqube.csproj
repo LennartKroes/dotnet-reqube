@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <Description>A tool that converts ReSharper inspect code report to SonarQube format</Description>
@@ -12,7 +12,7 @@
     <RepositoryUrl>https://github.com/olsh/reqube</RepositoryUrl>    
     <TieredCompilation>true</TieredCompilation>
     <OutputType>Exe</OutputType>
-    <TargetFramework>netcoreapp3.0</TargetFramework>
+    <TargetFramework>net5.0</TargetFramework>
     <RootNamespace>ReQube</RootNamespace>
     <IsPackable>true</IsPackable>
     <PackAsTool>true</PackAsTool>    
