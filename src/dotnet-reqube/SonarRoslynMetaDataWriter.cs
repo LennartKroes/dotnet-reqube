@@ -54,41 +54,41 @@ namespace ReQube
             var projectLanguage = projectInfo.RequiredElement(ns + "ProjectLanguage").Value;
             var sonarLanguage = projectLanguage == "C#" ? "cs" : "vbnet";
             var analysisSettings = projectInfo.RequiredElement(ns + "AnalysisSettings");
-            var reportFilePathNameAttribute = $"sonar.{sonarLanguage}.roslyn.reportFilePath";
-            var projectOutPathNameAttribute = $"sonar.{sonarLanguage}.analyzer.projectOutPath";
+            var reportFilePathsNameAttribute = $"sonar.{sonarLanguage}.roslyn.reportFilePaths";
+            var projectOutPathsNameAttribute = $"sonar.{sonarLanguage}.analyzer.projectOutPaths";
 
-            var reportFilePathProperty = 
+            var reportFilePathsProperty = 
                 analysisSettings
                 .Elements()
-                .FirstOrDefault(p => p.Attribute("Name")?.Value == reportFilePathNameAttribute);
+                .FirstOrDefault(p => p.Attribute("Name")?.Value == reportFilePathsNameAttribute);
 
-            if (reportFilePathProperty != null)
+            if (reportFilePathsProperty != null)
             {
                 var reportFilePaths = 
-                    reportFilePathProperty.Value
+                    reportFilePathsProperty.Value
                     .Split("|").Select(x => x.Trim()).Where(x => !string.IsNullOrEmpty(x)).ToHashSet();
                 reportFilePaths.Add(reSharperRoslynFile);
-                reportFilePathProperty.Value = string.Join("|", reportFilePaths);
+                reportFilePathsProperty.Value = string.Join("|", reportFilePaths);
             } else
             {
-                reportFilePathProperty = new XElement(ns + "Property", reSharperRoslynFile);
-                reportFilePathProperty.SetAttributeValue("Name", reportFilePathNameAttribute);
-                analysisSettings.Add(reportFilePathProperty);
+                reportFilePathsProperty = new XElement(ns + "Property", reSharperRoslynFile);
+                reportFilePathsProperty.SetAttributeValue("Name", reportFilePathsNameAttribute);
+                analysisSettings.Add(reportFilePathsProperty);
             }
 
-            var projectOutPathProperty =
+            var projectOutPathsProperty =
                 analysisSettings
                 .Elements()
-                .FirstOrDefault(p => p.Attribute("Name")?.Value == projectOutPathNameAttribute);
+                .FirstOrDefault(p => p.Attribute("Name")?.Value == projectOutPathsNameAttribute);
 
-            if (projectOutPathProperty != null)
+            if (projectOutPathsProperty != null)
             {
-                projectOutPathProperty.Value = projectInfoFile.DirectoryName ?? string.Empty;
+                projectOutPathsProperty.Value = projectInfoFile.DirectoryName ?? string.Empty;
             } else
             {
-                projectOutPathProperty = new XElement(ns + "Property", projectInfoFile.DirectoryName);
-                projectOutPathProperty.SetAttributeValue("Name", projectOutPathNameAttribute);
-                analysisSettings.Add(projectOutPathProperty);
+                projectOutPathsProperty = new XElement(ns + "Property", projectInfoFile.DirectoryName);
+                projectOutPathsProperty.SetAttributeValue("Name", projectOutPathsNameAttribute);
+                analysisSettings.Add(projectOutPathsProperty);
             }
 
             projectInfo.Save(projectInfoFile.FullName);

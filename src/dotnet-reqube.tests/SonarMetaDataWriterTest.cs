@@ -66,10 +66,10 @@ namespace ReQube.Tests
                       <FullPath>{Path.Combine(ProjectDir, "test1.csproj")}</FullPath>
                       <IsExcluded>false</IsExcluded>
                       <AnalysisSettings>
-                        <Property Name=""sonar.cs.roslyn.reportFilePath"">
+                        <Property Name=""sonar.cs.roslyn.reportFilePaths"">
                             /tmp/test1.json|{Path.Combine(ProjectDir, "test1.ReSharper.RoslynCA.json")}
                         </Property>
-                        <Property Name=""sonar.cs.analyzer.projectOutPath"">{Path.Combine(SonarDir, "1")}</Property>
+                        <Property Name=""sonar.cs.analyzer.projectOutPaths"">{Path.Combine(SonarDir, "1")}</Property>
                       </AnalysisSettings>
                       <Configuration>Release</Configuration>
                       <Platform>AnyCPU</Platform>
@@ -86,10 +86,10 @@ namespace ReQube.Tests
                       <FullPath>{Path.Combine(ProjectDir, "test2.csproj")}</FullPath>
                       <IsExcluded>false</IsExcluded>
                       <AnalysisSettings>
-                        <Property Name=""sonar.cs.roslyn.reportFilePath"">
+                        <Property Name=""sonar.cs.roslyn.reportFilePaths"">
                             /tmp/test1.json|/tmp/test2.json|{Path.Combine(ProjectDir, "test2.ReSharper.RoslynCA.json")}
                         </Property>
-                        <Property Name=""sonar.cs.analyzer.projectOutPath"">{Path.Combine(SonarDir, "2")}</Property>
+                        <Property Name=""sonar.cs.analyzer.projectOutPaths"">{Path.Combine(SonarDir, "2")}</Property>
                       </AnalysisSettings>
                       <Configuration>Release</Configuration>
                       <Platform>AnyCPU</Platform>
@@ -106,10 +106,10 @@ namespace ReQube.Tests
                       <FullPath>{Path.Combine(ProjectDir, "test3.csproj")}</FullPath>
                       <IsExcluded>false</IsExcluded>
                       <AnalysisSettings>
-                        <Property Name=""sonar.cs.roslyn.reportFilePath"">
+                        <Property Name=""sonar.cs.roslyn.reportFilePaths"">
                             {Path.Combine(ProjectDir, "test3.ReSharper.RoslynCA.json")}
                         </Property>
-                        <Property Name=""sonar.cs.analyzer.projectOutPath"">{Path.Combine(SonarDir, "3")}</Property>
+                        <Property Name=""sonar.cs.analyzer.projectOutPaths"">{Path.Combine(SonarDir, "3")}</Property>
                       </AnalysisSettings>
                       <Configuration>Release</Configuration>
                       <Platform>AnyCPU</Platform>
@@ -126,10 +126,10 @@ namespace ReQube.Tests
                       <FullPath>{Path.Combine(ProjectDir, "test4.csproj")}</FullPath>
                       <IsExcluded>false</IsExcluded>
                       <AnalysisSettings>
-                        <Property Name=""sonar.vbnet.roslyn.reportFilePath"">
+                        <Property Name=""sonar.vbnet.roslyn.reportFilePaths"">
                             {Path.Combine(ProjectDir, "test4.ReSharper.RoslynCA.json")}
                         </Property>
-                        <Property Name=""sonar.vbnet.analyzer.projectOutPath"">{Path.Combine(SonarDir, "4")}</Property>
+                        <Property Name=""sonar.vbnet.analyzer.projectOutPaths"">{Path.Combine(SonarDir, "4")}</Property>
                       </AnalysisSettings>
                       <Configuration>Release</Configuration>
                       <Platform>AnyCPU</Platform>
@@ -198,10 +198,10 @@ namespace ReQube.Tests
             var project1 = Path.Combine(ProjectDir, "test1.csproj");
             var report1 = Path.Combine(ProjectDir, "test1.ReSharper.RoslynCA.json");
             var analysisSettings1 = $@"
-                    <Property Name=""sonar.cs.roslyn.reportFilePath"">
+                    <Property Name=""sonar.cs.roslyn.reportFilePaths"">
                         /tmp/test1.json|{Path.Combine(ProjectDir, "test1.ReSharper.RoslynCA.json")}
                     </Property>
-                    <Property Name=""sonar.cs.analyzer.projectOutPath"">dummy string</Property>
+                    <Property Name=""sonar.cs.analyzer.projectOutPaths"">dummy string</Property>
                 ";
 
             var projectInfo1 = NormalizeXml(string.Format(projectInfoTemplate, project1, analysisSettings1));
@@ -213,7 +213,7 @@ namespace ReQube.Tests
             var project2 = Path.Combine(ProjectDir, "test2.csproj");
             var report2 = Path.Combine(ProjectDir, "test2.ReSharper.RoslynCA.json");
             var analysisSettings2 = @"
-                    <Property Name=""sonar.cs.roslyn.reportFilePath"">
+                    <Property Name=""sonar.cs.roslyn.reportFilePaths"">
                         /tmp/test1.json|/tmp/test2.json
                     </Property>
                 ";
@@ -227,7 +227,7 @@ namespace ReQube.Tests
             var project3 = Path.Combine(ProjectDir, "test3.csproj");
             var report3 = Path.Combine(ProjectDir, "test3.ReSharper.RoslynCA.json");
             var analysisSettings3 = @"
-                    <Property Name=""sonar.cs.roslyn.reportFilePath"">
+                    <Property Name=""sonar.cs.roslyn.reportFilePaths"">
                         
                     </Property>
                 ";
@@ -288,7 +288,7 @@ namespace ReQube.Tests
                 xml
                 .Element(ns + "AnalysisSettings")
                 ?.Elements()
-                .FirstOrDefault(x => x.Attribute("Name")?.Value.Contains("roslyn.reportFilePath") ?? false);
+                .FirstOrDefault(x => x.Attribute("Name")?.Value.Contains("roslyn.reportFilePaths") ?? false);
         }
     }
 }
